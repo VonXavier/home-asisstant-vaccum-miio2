@@ -1,0 +1,269 @@
+cards:
+  - elements:
+      - icon: 'mdi:robot-vacuum'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 10%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          service_data:
+            entity_id: automation.tryb_pracy
+        type: icon
+      - icon: 'mdi:fan'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 20%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          service_data:
+            entity_id: automation.tryb_odkurzania
+        type: icon
+      - entity: sensor.vacuum_led
+        style:
+          '--paper-item-icon-active-color': red
+          '--paper-item-icon-color': '#e6e7e9'
+          left: 30%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          service_data:
+            entity_id: automation.led_status
+        type: state-icon
+      - icon: 'mdi:play'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 40%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: vacuum.start
+          service_data:
+            entity_id: vacuum.darek
+        type: icon
+      - icon: 'mdi:pause'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 50%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: vacuum.pause
+          service_data:
+            entity_id: vacuum.darek
+        type: icon
+      - icon: 'mdi:stop'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 60%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: vacuum.stop
+          service_data:
+            entity_id: vacuum.darek
+        type: icon
+      - icon: 'mdi:home'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 70%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: vacuum.return_to_base
+          service_data:
+            entity_id: vacuum.darek
+        type: icon
+      - icon: 'mdi:bell-ring'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 80%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: vacuum.locate
+          service_data:
+            entity_id: vacuum.darek
+        type: icon
+      - icon: 'mdi:water'
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          left: 90%
+          top: 95%
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          service_data:
+            entity_id: automation.ilosc_wody
+        type: icon
+      - entity: sensor.vacuum_cleanmode
+        prefix: 'Tryb: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-left-style: solid
+          font-size: 90%
+          font-weight: bold
+          left: 1%
+          pointer-events: none
+          top: 15%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_battery
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-left-style: solid
+          font-size: 90%
+          font-weight: bold
+          left: 1%
+          pointer-events: none
+          top: 35%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_fan_speed
+        prefix: 'Prędkość: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-left-style: solid
+          font-size: 90%
+          font-weight: bold
+          left: 1%
+          pointer-events: none
+          top: 25%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_dustbox
+        prefix: 'Pojemnik: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-left-style: solid
+          font-size: 90%
+          font-weight: bold
+          left: 1%
+          pointer-events: none
+          top: 45%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_mop
+        prefix: 'Mop: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-left-style: solid
+          font-size: 90%
+          font-weight: bold
+          left: 1%
+          pointer-events: none
+          top: 55%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_cleaned_area
+        prefix: 'Obszar: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          font-size: 110%
+          font-weight: bold
+          left: 30%
+          pointer-events: none
+          top: 80%
+        type: state-label
+      - entity: sensor.vacuum_cleaning_time
+        prefix: 'Czas: '
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          font-size: 110%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 80%
+        suffix: ' min'
+        type: state-label
+      - entity: sensor.vacuum_cleanmainbrush
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-right-style: solid
+          font-size: 90%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 15%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_cleansidebrush
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-right-style: solid
+          font-size: 90%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 25%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_sensordirtyleft
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-right-style: solid
+          font-size: 90%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 35%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_cleanfilter
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-right-style: solid
+          font-size: 90%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 45%
+          transform: none
+        type: state-label
+      - entity: sensor.vacuum_watergrade
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          border-right-style: solid
+          font-size: 90%
+          font-weight: bold
+          pointer-events: none
+          right: 1%
+          top: 55%
+          transform: none
+        type: state-label
+      - entity: vacuum.darek
+        style:
+          '--paper-item-icon-color': 'rgb(115, 122, 130)'
+          font-size: 150%
+          font-weight: bold
+          left: 50%
+          top: 8%
+        tap_action:
+          action: more-info
+        type: state-label
+    image: /local/vacuum.png
+    type: picture-elements
+  - entities:
+      - entity: input_select.vacuum_room
+        image: /local/vacuum.png
+        style:
+          ha-paper-dropdown-menu:
+            $:
+              paper-input:
+                $:
+                  paper-input-container: |
+                    label {
+                      font-size: 16px;
+                      color: white;
+                    }
+    image: /local/vacuum.png
+    style: |
+      ha-card {
+        background-image: url("/local/vacuum.png");
+       }
+    type: entities
+type: 'custom:vertical-stack-in-card'
