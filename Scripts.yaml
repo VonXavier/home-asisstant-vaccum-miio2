@@ -1,0 +1,244 @@
+'1582355098009':
+  alias: Powiadomienie Lili wstala
+  sequence:
+  - data:
+      message: Lili wstala
+      title: Dom mówi
+    service: notify.mobile_app_lenovo_k53a48
+  - data:
+      message: Lili wstala
+      title: Dom mówi
+    service: notify.mobile_app_a5_pro
+'1583500636940':
+  alias: Lili zasnela
+  sequence:
+  - data:
+      message: Lili zasnełe
+      title: Dom mówi
+    service: notify.mobile_app_a5_pro
+  - data:
+      message: Lili zasnełe
+      title: Dom mówi
+    service: notify.mobile_app_lenovo_k53a48
+'1583500938869':
+  alias: Okno
+  sequence:
+  - data:
+      message: Okno jest otwarte
+      title: Dom mówi
+    service: notify.mobile_app_lenovo_k53a48
+# vacuum_hol:
+#   alias: Hol
+#   sequence:
+#   - data:
+#       command: set_mode_withroom
+#       params:
+#       - 0
+#       - 1
+#       - 1
+#       - 12
+#     entity_id: vacuum.darek
+#     service: vacuum.send_command
+# vacuum_sypialnia:
+#   alias: Sypialnia
+#   sequence:
+#   - data:
+#       command: set_mode_withroom
+#       params:
+#       - 0
+#       - 1
+#       - 1
+#       - 13
+#     entity_id: vacuum.darek
+#     service: vacuum.send_command
+# vacuum_madzi:
+#   alias: Madzi
+#   sequence:
+#   - data:
+#       command: set_mode_withroom
+#       params:
+#       - 0
+#       - 1
+#       - 1
+#       - 10
+#     entity_id: vacuum.darek
+#     service: vacuum.send_command
+vacuum_salon:
+  alias: Odkurzanie salonu
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 0]
+
+vacuum_kuchnia:
+  alias: Odkurzanie kuchni
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 1]
+
+vacuum_przedpokoj:
+  alias: Odkurzanie przedpokóju
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 2]
+
+vacuum_lazienka:
+  alias: Odkurzanie łazienki
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 3]
+
+vacuum_pokojdzieci:
+  alias: Odkurzanie pokoju dzieci
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 4]
+
+vacuum_sypialnia:
+  alias: Odkurzanie sypialni
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_language
+      params: 2
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.darek
+      command: set_mode_withroom
+      params: [0, 1, 1, 5]
+
+vacuum_water_grade_low:
+  alias: Ilość wody niski
+  sequence:
+  - data:
+      command: set_suction
+      params: 11
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_water_grade_medium:
+  alias: Ilość wody średni
+  sequence:
+  - data:
+      command: set_suction
+      params: 12
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_water_grade_high:
+  alias: Ilość wody wysoki
+  sequence:
+  - data:
+      command: set_suction
+      params: 13
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_set_silente:
+  sequence:
+  - data:
+     fan_speed: Silent
+    entity_id: vacuum.darek
+    service: vacuum.set_fan_speed
+    
+vacuum_set_standard:
+  sequence:
+  - data:
+     fan_speed: Standard
+    entity_id: vacuum.darek
+    service: vacuum.set_fan_speed
+
+vacuum_set_medium:
+  sequence:
+  - data:
+     fan_speed: Medium
+    entity_id: vacuum.darek
+    service: vacuum.set_fan_speed
+
+vacuum_set_turbo:
+  sequence:
+  - data:
+     fan_speed: Turbo
+    entity_id: vacuum.darek
+    service: vacuum.set_fan_speed
+
+vacuum_set_light_on:
+  sequence:
+  - data:
+      command: set_light
+      params: 1
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_set_light_off:
+  sequence:
+  - data:
+      command: set_light
+      params: 0
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+
+vacuum_set_mop_0:
+  sequence:
+  - data:
+      command: set_mop
+      params: 0
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_set_mop_1:
+  sequence:
+  - data:
+      command: set_mop
+      params: 1
+    entity_id: vacuum.darek
+    service: vacuum.send_command
+
+vacuum_set_mop_2:
+  sequence:
+  - data:
+      command: set_mop
+      params: 2
+    entity_id: vacuum.darek
+    service: vacuum.send_command
