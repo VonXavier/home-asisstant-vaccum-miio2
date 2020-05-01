@@ -1,0 +1,494 @@
+##############################################
+###            sensor.yaml
+#############################################
+
+############# Sensory AFE ############
+#### Stacja Pogody
+######################################
+  - platform: mqtt
+    name: "Stacja Jasność"
+    state_topic: "/stacja/BH/"
+    unit_of_measurement: "lux"
+    value_template: '{{ value_json["illuminance"].value  }}'
+  - platform: mqtt
+    name: Stacja Pył PM2.5
+    state_topic: "/stacja/HPMA/"
+    value_template: '{{ value_json["PM25"].value  }}'
+    unit_of_measurement: "μg/m3"
+  - platform: mqtt
+    name: Stacja Pył PM10
+    state_topic: "/stacja/HPMA/"
+    value_template: '{{ value_json["PM10"].value  }}'
+    unit_of_measurement: "μg/m3"
+  - platform: mqtt
+    name: Stacja Temperatura
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["temperature"].value  }}'
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: Stacja Wilgotność
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["humidity"].value  }}'
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: Stacja Ciśnienie
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["pressure"].value  }}'
+    unit_of_measurement: "hpa"
+  - platform: mqtt
+    name: Stacja Ciśnienie względne
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["relativePressure"].value  }}'
+    unit_of_measurement: "hpa"
+  - platform: mqtt
+    name: Stacja Punkty rosy
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["dewPoint"].value  }}'
+    unit_of_measurement: "°"
+  - platform: mqtt
+    name: Stacja Temperatura odczuwalna
+    state_topic: "/stacja/BME/"
+    value_template: '{{ value_json["heatIndex"].value  }}'
+    unit_of_measurement: "°"
+    
+#####################################################
+# Czujnik komp
+#####################################################
+
+#  - platform: mqtt
+#    name: Komp Temperatura
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["temperature"].value  }}'
+#    unit_of_measurement: "°C"
+#  - platform: mqtt
+#    name: Komp Wilgotność
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["humidity"].value  }}'
+#    unit_of_measurement: "%"
+#  - platform: mqtt
+#    name: Komp Ciśnienie
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["pressure"].value  }}'
+#    unit_of_measurement: "hpa"
+#  - platform: mqtt
+#    name: Komp Ciśnienie względne
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["relativePressure"].value  }}'
+#    unit_of_measurement: "hpa"
+#  - platform: mqtt
+#    name: Komp Punkty rosy
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["dewPoint"].value  }}'
+#    unit_of_measurement: "°"
+#  - platform: mqtt
+#    name: Komp Temperatura odczuwalna
+#    state_topic: "/komp/BME/"
+#    value_template: '{{ value_json["heatIndex"].value  }}'
+#    unit_of_measurement: "°"
+#    
+
+# nowa airly
+
+#  - platform: airly
+#    name: 'Bogucice - Jakosc Powietrza'
+#    api_key: !secret airly_api_key
+#    latitude: !secret airly-latitude
+#    longitude: !secret airly-longitude
+#    language: 'pl'
+
+
+
+#######
+### czujnik dht12 nazwany komp
+#  - platform: mqtt
+#    name: komp-temp
+#    state_topic: "/komp/BME"
+#    unit_of_measurement: "°C"
+#  - platform: mqtt
+#    name: komp-wilg
+#    state_topic: "/komp/BME"
+#    unit_of_measurement: "%"
+#  - platform: mqtt
+#    name: komp-index
+#    state_topic: "/komp/BME"
+#    unit_of_measurement: "°"
+#  - platform: mqtt
+#    name: komp-punkty
+#    state_topic: "/komp/BME"
+#    unit_of_measurement: "°"
+#    
+
+
+########################################
+### Xiaomi bluetoot sensor temp wilg 1
+########################################
+#  - platform: mitemp_bt
+#    mac: '4C:65:A8:DD:85:16'
+#    name: sypialnia
+#    force_update: true
+#    median: 1
+#    monitored_conditions:
+#      - temperature
+#      - humidity
+#      - battery
+
+########################################
+### GLANCE
+########################################
+
+#  - platform: glances
+#    host: 192.168.1.20
+#    port: 61209
+#    version: 3
+#    resources:
+#      - 'processor_load'
+#      - 'memory_use_percent'
+#      - 'disk_use_percent'
+#      - 'disk_use'
+#      - 'disk_free'
+#      - 'memory_use'
+#      - 'memory_free'
+#      - 'swap_use_percent'
+#      - 'swap_use'
+#      - 'swap_free'
+#      - 'process_running'
+#      - 'process_total'
+#      - 'process_thread'
+#      - 'process_sleeping'
+#      - 'cpu_use_percent'
+#      - 'sensor_temp'
+#      - 'docker_active'
+#      - 'docker_cpu_use'
+#      - 'docker_memory_use'
+
+
+########################################
+### Sensor Maszyna:
+########################################
+## Temperatura procesora Maliny:
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+## Miejsce na Dysku:
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+## Użycie procesora:
+      - type: processor_use
+## Użycie pamięci:
+      - type: memory_use
+## Dane intenetu:
+      - type: network_in
+        arg: wlxd03745459920
+      - type: network_out
+        arg: wlxd03745459920
+## Ostatni boot:
+      - type: last_boot
+########################################
+#    system_uptime:
+#    friendly_name: Last system reboot
+#    entity_id: sensor.time
+#         value_template: >
+#          {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
+
+#          {% set minutes = (up_time // 60) | int %}
+#          {% set hours = (minutes // 60) %}
+#          {% set days = (hours // 24) %}
+#          {% set weeks = (days // 7) %}
+  
+#          {% set minutes = (minutes % 60) %}
+#          {% set hours =  (hours % 24) %}
+#          {% set days = (days % 7) %}
+
+#          {% macro phrase(value, name) %}
+#                  {%- set value = value %}
+#                  {%- set end = 's' if value > 1 else '' %}
+#                  {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
+#          {%- endmacro %}
+                  
+#          {% set text = [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') %}
+#          {% set last_comma = text.rfind(',') %}
+#          {% if last_comma != -1 %}
+#          {% set text = text[:last_comma] + ' and' + text[last_comma + 1:] %}
+#          {% endif %}
+      
+#          {{ text }} {{'ago'}}        
+        
+        
+        
+########################################
+### odkurzacz
+########################################
+
+
+  - platform: template
+    sensors:
+      vacuum_status:
+        friendly_name: Status
+        entity_id:
+          - vacuum.darek
+        value_template: 'Status: {{ states.vacuum.darek.attributes.status }}'
+        icon_template: >
+          {% set val =  states.vacuum.darek.attributes.status  %}
+          {% if val == 'Charging' %}
+            mdi:battery-charging
+          {% elif val == 'Cleaning' %}
+            mdi:move-resize
+          {% elif val == 'Returning home' %}
+            mdi:keyboard-return
+          {% elif val == 'Idle' %}
+            mdi:dots-horizontal
+          {% elif val == 'Paused' %}
+            mdi:pause-circle
+          {% else %}
+            mdi:help-circle
+          {% endif %}
+      vacuum_fan_speed:
+        friendly_name: Fan Speed
+        entity_id:
+          - vacuum.darek
+        value_template: '{{ states.vacuum.darek.attributes.fan_speed }}'
+        icon_template: 'mdi:speedometer'
+      vacuum_battery:
+        friendly_name: Vacuum Battery
+        entity_id:
+          - vacuum.darek
+        value_template: 'Bateria: {{ states.vacuum.darek.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        icon_template: '{{ states.vacuum.darek.attributes.battery_icon }}'
+      vacuum_cleaning_time:
+        friendly_name: Time of Last Cycle
+        entity_id:
+          - vacuum.darek
+        value_template: '{{ states.vacuum.darek.attributes.s_time }}'
+        icon_template: 'mdi:timer'
+      vacuum_cleaned_area:
+        friendly_name: Area of Last Cycle
+        unit_of_measurement: 'm ²'
+        entity_id:
+          - vacuum.darek
+        value_template: '{{ states.vacuum.darek.attributes.s_area }}'
+        icon_template: 'mdi:ruler'
+      vacuum_cleanmainbrush:
+        friendly_name: Replace main brush
+        unit_of_measurement: '%'
+        entity_id:
+          - vacuum.darek
+        value_template: 'Główna szczotka: {{ states.vacuum.darek.attributes.main_brush_hours }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleansidebrush:
+        friendly_name: Replace side brush
+        unit_of_measurement: '%'
+        entity_id:
+          - vacuum.darek
+        value_template: 'Boczna szczotka: {{ states.vacuum.darek.attributes.side_brush_hours }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleanfilter:
+        friendly_name: Replace filter
+        unit_of_measurement: '%'
+        entity_id:
+          - vacuum.darek
+        value_template: 'Filtr: {{ states.vacuum.darek.attributes.hypa_hours }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_sensordirtyleft:
+        friendly_name: Replace mop
+        unit_of_measurement: '%'
+        entity_id:
+          - vacuum.darek
+        value_template: 'Mop: {{ states.vacuum.darek.attributes.mop_hours }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_mop:
+        friendly_name: Is mop installed
+        entity_id:
+          - vacuum.darek
+        value_template: >-
+          {% if states.vacuum.darek.attributes.mop_type == 1 %}
+            Gotowy
+          {% else %}
+            Brak
+          {% endif %}
+        icon_template: 'mdi:screwdriver'
+      vacuum_dustbox:
+        friendly_name: dustbox type
+        entity_id:
+          - vacuum.darek
+        value_template: >-
+          {% if states.vacuum.darek.attributes.box_type == 1  %}
+            Zwykły
+          {% elif states.vacuum.darek.attributes.box_type == 3  %}
+            Z wodą
+          {% else %}
+            Brak
+          {% endif %}
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleanmode:
+        friendly_name: Cleaning Mode
+        entity_id:
+          - vacuum.darek
+        value_template: >-
+          {% if states.vacuum.darek.attributes.is_mop == 0  %}
+            Odkurzanie 
+          {% elif states.vacuum.darek.attributes.is_mop == 1  %}
+            Odkurzanie & Mop
+          {% elif states.vacuum.darek.attributes.is_mop == 2  %}
+          Mop
+          {% else %}
+            Nie gotowy
+          {% endif %}
+        icon_template: 'mdi:screwdriver'
+      vacuum_watergrade:
+        friendly_name: ilość wody
+        entity_id:
+          - vacuum.darek
+        value_template: >-
+          {% if states.vacuum.darek.attributes.water_grade == 11  %}
+            Ilość wody: Mała
+          {% elif states.vacuum.darek.attributes.water_grade == 12  %}
+            Ilość wody: Średnia
+          {% elif states.vacuum.darek.attributes.water_grade == 13  %}
+            Ilość wody: Duża
+          {% else %}
+            Ilość wody: brak
+          {% endif %}
+
+      vacuum_led:
+        entity_id:
+        - vacuum.darek
+        value_template: >-
+          {% if states.vacuum.darek.attributes.repeat_state == 0  %}
+            LED wyłączone
+          {% else %}
+            LED włączone
+          {% endif %}
+        friendly_name: LED
+        icon_template: >-
+          {% if states.vacuum.darek.attributes.repeat_state == 0  %}
+          mdi:led-variant-off
+          {% else %}
+          mdi:led-on
+          {%- endif %}
+
+
+#   - platform: template
+#     sensors:
+#       vacuum_status:
+#         friendly_name: Status
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Status: {{ states.vacuum.darek.attributes.status }}'
+#         icon_template: >
+#           {% set val =  states.vacuum.darek.attributes.status  %}
+#           {% if val == 'Ładowanie' %}
+#             mdi:battery-charging
+#           {% elif val == 'Sprzątanie' %}
+#             mdi:move-resize
+#           {% elif val == 'Wraca do bazy' %}
+#             mdi:keyboard-return
+#           {% elif val == 'Idle' %}
+#             mdi:dots-horizontal
+#           {% elif val == 'Paused' %}
+#             mdi:pause-circle
+#           {% else %}
+#             mdi:help-circle
+#           {% endif %}
+#       vacuum_fan_speed:
+#         friendly_name: Prędkość odkurzania
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Tryb: {{ states.vacuum.darek.attributes.fan_speed }}'
+#         icon_template: 'mdi:speedometer'
+#       vacuum_battery:
+#         friendly_name: Bateria
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Bateria: {{ states.vacuum.darek.attributes.battery_level }}'
+#         unit_of_measurement: '%'
+#         icon_template: '{{ states.vacuum.darek.attributes.battery_icon }}'
+#       vacuum_cleaning_time:
+#         friendly_name: Ostatni czas
+#         unit_of_measurement: 'min'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: '{{ states.vacuum.darek.attributes.s_time }}'
+#         icon_template: 'mdi:timer'
+#       vacuum_cleaned_area:
+#         friendly_name: Ostatni obszar
+#         unit_of_measurement: 'm ²'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: '{{ states.vacuum.darek.attributes.s_area }}'
+#         icon_template: 'mdi:ruler'
+#       vacuum_cleanmainbrush:
+#         friendly_name: Wymień główną szczotkę
+#         unit_of_measurement: 'h'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Główna szczotka: {{ states.vacuum.darek.attributes.main_brush_hours }}'
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_cleansidebrush:
+#         friendly_name: Wymień szczotkę boczną
+#         unit_of_measurement: 'h'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Szczotka boczna: {{ states.vacuum.darek.attributes.side_brush_hours }}'
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_cleanfilter:
+#         friendly_name: Wymień filter
+#         unit_of_measurement: 'h'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Filter: {{ states.vacuum.darek.attributes.hypa_hours }}'
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_sensordirtyleft:
+#         friendly_name: Wymień mop
+#         unit_of_measurement: 'h'
+#         entity_id:
+#           - vacuum.darek
+#         value_template: 'Mop: {{ states.vacuum.darek.attributes.mop_hours }}'
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_mop:
+#         friendly_name: Włóż mop
+#         entity_id:
+#           - vacuum.darek
+#         value_template: >-
+#           {% if states.vacuum.darek.attributes.mop_type == 1 %}
+#             Zamontowany
+#           {% else %}
+#             Brakuje
+#           {% endif %}
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_dustbox:
+#         friendly_name: pojemnik na kurz
+#         entity_id:
+#           - vacuum.darek
+#         value_template: >-
+#           {% if states.vacuum.darek.attributes.box_type == 1  %}
+#             Odkurzanie
+#           {% elif states.vacuum.darek.attributes.box_type == 3  %}
+#             2 in 1 odkurzanie/mop
+#           {% else %}
+#             Włóż pojemnik
+#           {% endif %}
+#         icon_template: 'mdi:screwdriver'
+#       vacuum_cleanmode:
+#         friendly_name: Program czyszczenia
+#         entity_id:
+#           - vacuum.darek
+#         value_template: >-
+#           {% if states.vacuum.darek.attributes.box_type == 3 and states.vacuum.darek.attributes.mop_type == 1  %}
+#             Odkurzanie i mopowanie
+#           {% elif states.vacuum.darek.attributes.box_type == 1  %}
+#             Odkurzania
+#           {% else %}
+#             Nie gotowy
+#           {% endif %}
+#         icon_template: 'mdi:screwdriver'
+        
+        
+        
+        
